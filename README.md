@@ -1,4 +1,18 @@
-# Google Docs Document Review
+# Google Docs MCP agent with PydanticAI: Google Docs Document Review
+
+<!-- weavz:discovery:start -->
+
+Use Google Docs with PydanticAI through Weavz MCP. This google docs document review example returns a report from bounded app reads with source references.
+
+**Framework:** PydanticAI · **Language:** Python · **MCP modes:** Tool Mode and Code Mode
+
+Use another framework:
+
+- [Google Docs MCP with LlamaIndex Python](https://github.com/weavz/weavz-llamaindex/blob/main/docs/app-recipes.md#google-docs-mcp-with-llamaindex-python)
+
+[MCP app and framework directory](https://github.com/weavz/mcp-examples/blob/main/docs/integrations.md) · [All examples](https://github.com/weavz/mcp-examples) · [Weavz MCP guide](https://weavz.io/docs/guides/agent-framework-examples)
+
+<!-- weavz:discovery:end -->
 
 Review the selected Google Doc for decisions, unresolved questions, and owners. Provide a concise summary with a clear distinction between stated decisions and suggestions.
 
