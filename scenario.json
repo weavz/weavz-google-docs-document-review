@@ -1,0 +1,82 @@
+{
+  "id": "google-docs-document-review",
+  "title": "Google Docs Document Review",
+  "prompt": "Review the selected Google Doc for decisions, unresolved questions, and owners. Provide a concise summary with a clear distinction between stated decisions and suggestions.",
+  "instructions": "Read only the supplied document ID. Base the review on returned document content; do not imply access to linked docs or comments unless they are returned. Identify dates and owners as written and mark missing information as unknown. Do not edit, comment, or share the document.",
+  "fixture_summary": "Synthetic Google Doc contains a launch decision section, an open-question section, and an owner list. One risk has no named owner.",
+  "inputs": {
+    "documentId": "google-doc-demo-501"
+  },
+  "steps": [
+    {
+      "id": "read_launch_doc",
+      "alias": "launch_docs",
+      "integration": "google-docs",
+      "action": "get_document",
+      "tool": "launch_docs__get_document",
+      "arguments": {
+        "documentId": "google-doc-demo-501"
+      },
+      "records": [
+        {
+          "id": "doc-section-1",
+          "app": "Google Docs",
+          "title": "Launch decision / rollout scope",
+          "detail": "Synthetic document section: first rollout is limited to one region; the team chose gradual enablement after monitoring.",
+          "url": "https://example.com/records/doc-section-1",
+          "document_id": "google-doc-demo-501",
+          "section": "decision",
+          "decision_confirmed": true,
+          "owner_present": true
+        },
+        {
+          "id": "doc-section-2",
+          "app": "Google Docs",
+          "title": "Open question / export recovery",
+          "detail": "Synthetic document section: recovery behavior after export timeout remains undecided.",
+          "url": "https://example.com/records/doc-section-2",
+          "document_id": "google-doc-demo-501",
+          "section": "open_question",
+          "decision_confirmed": false,
+          "owner_present": false
+        },
+        {
+          "id": "doc-section-3",
+          "app": "Google Docs",
+          "title": "Owners / launch readiness",
+          "detail": "Synthetic document section: Dana owns monitoring; Riley owns rollback. No owner is listed for export recovery.",
+          "url": "https://example.com/records/doc-section-3",
+          "document_id": "google-doc-demo-501",
+          "section": "owners",
+          "decision_confirmed": true,
+          "owner_present": true
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "document_sections",
+      "op": "count"
+    },
+    {
+      "name": "confirmed_decision_sections",
+      "op": "count",
+      "where": {
+        "decision_confirmed": true
+      }
+    },
+    {
+      "name": "sections_missing_owner",
+      "op": "count",
+      "where": {
+        "owner_present": false
+      }
+    }
+  ],
+  "expected_metrics": {
+    "document_sections": 3,
+    "confirmed_decision_sections": 2,
+    "sections_missing_owner": 1
+  }
+}
